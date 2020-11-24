@@ -67,8 +67,8 @@ router.post('/errors/searchlog/add_search', function(req,res,next){
         }).catch(next);
 });
 
-router.delete('/errors/searches/:id', function(req, res, next){
-    ErrorSearch.findByIdAndRemove({_id: req.params.id}).then(function(product){
+router.delete('/errors/searchlog/delete/:keyword', function(req, res, next){
+    ErrorSearch.findByIdAndRemove({Keyword: encodeURIComponent(req.params.keyword)}).then(function(product){
         res.send(product);
     });
 });
@@ -80,12 +80,12 @@ router.get('/errors/errorlog', function(req, res, next){
 });
 
 router.post('/errors/errorlog/add_error', function(req,res,next){
-        ErrorLog.create({Keyword: req.body.Keyword}).then(function(keyword){
+        ErrorLog.create({Message: req.body.Message}).then(function(keyword){
             res.send(keyword);
         }).catch(next);
 });
 
-router.delete('/errors/errorlog/:id', function(req, res, next){
+router.delete('/errors/errorlog/delete/:id', function(req, res, next){
     ErrorLog.findByIdAndRemove({_id: req.params.id}).then(function(product){
         res.send(product);
     });

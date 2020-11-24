@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const ErrorSearchesSchema = new Schema({
     Keyword: {
         type: String,
+        unique: true,
         required: [true, 'Keyword field is required']
     },
     Timestamp: {
