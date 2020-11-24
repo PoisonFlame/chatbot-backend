@@ -1,0 +1,8 @@
+npm init -y
+npm install express --save
+node index
+npm install -g nodemon
+npm install nodemon --save-dev
+nodemon index
+npm install body-parser --save
+npm install mongoose --save
