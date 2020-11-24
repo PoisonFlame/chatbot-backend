@@ -79,7 +79,7 @@ router.get('/errors/errorlog', function(req, res, next){
     });
 });
 
-router.post('/errors/errorlog/add_search', function(req,res,next){
+router.post('/errors/errorlog/add_error', function(req,res,next){
         ErrorLog.create({Keyword: req.body.Keyword}).then(function(keyword){
             res.send(keyword);
         }).catch(next);
