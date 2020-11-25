@@ -1,0 +1,1 @@
+System OK. key word = dog, number of result = 22. Finished in loop: 1. time taken: 1.4827125072479248

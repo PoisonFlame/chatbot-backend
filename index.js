@@ -1,9 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+var cors = require('cors')
 
 // setup express app
 const app = express();
+
+app.use(cors())
+
 
 // connect to mongodb
 mongoose.connect('mongodb+srv://user1:iORM6nZpVR4HkNsI@cluster0.fji9x.mongodb.net/chatbot');

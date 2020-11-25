@@ -1,0 +1,1 @@
+System OK. key word = dog%20duck%20pig%20goose, number of result = 35. Finished in loop: 1. time taken: 1.7185914516448975

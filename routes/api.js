@@ -1,7 +1,7 @@
 const express = require('express');
 const Product = require('../models/product');
 const Search = require('../models/search')
-const ErrorLog = require('../models/error_log')
+const Log = require('../models/logs')
 const ErrorSearch = require('../models/error_searches')
 const router = express.Router();
 const {spawn} = require('child_process');
@@ -73,20 +73,21 @@ router.delete('/errors/searchlog/delete/:keyword', function(req, res, next){
     });
 });
 
-router.get('/errors/errorlog', function(req, res, next){
-    ErrorLog.find({}).then(function(product){
+router.get('/log/', function(req, res, next){
+    Log.find({}).then(function(product){
         res.send(product);
     });
 });
 
-router.post('/errors/errorlog/add_error', function(req,res,next){
-        ErrorLog.create({Message: req.body.Message}).then(function(keyword){
+router.post('/log/add_log', function(req,res,next){
+    //{User: req.body.User, Status: req.body.Status, Message: req.body.Message, Duration: req.body.Duration, Component}
+        Log.create(req.body).then(function(keyword){
             res.send(keyword);
         }).catch(next);
 });
 
-router.delete('/errors/errorlog/delete/:id', function(req, res, next){
-    ErrorLog.findByIdAndRemove({_id: req.params.id}).then(function(product){
+router.delete('/log/delete/:id', function(req, res, next){
+    Log.findByIdAndRemove({_id: req.params.id}).then(function(product){
         res.send(product);
     });
 });
