@@ -144,13 +144,19 @@ if __name__ == "__main__":
         m = Manager()
         q = m.Queue()  # use this manager Queue instead of multiprocessing Queue as that causes error
         p = {}
+        if s == 'failScrapeFault':
+             status = "Fail"
+             message = "Error while searching." + " key word = " + s + ". In Loop: " + str(d) + ". time taken: " + str(time.time() - startTime) + "+\n"
+             req1 = requests.post('http://100.24.238.133:8081/api/log/add_log', json=({"User": "System", "Status": status, "Message": message, "Duration": (str(time.time() - startTime)),"Component" : "Web Scraper","Additional_Info": "WEB_SCRAPE_FAIL"}))
+             req3 = requests.post('http://100.24.238.133:8081/api/errors/searchlog/add_search', json=({"Keyword":s}))
+             exit()
         if qcount > 0:
             log.write("System OK." + " key word = " + s + ", number of result = " + str(
                 qcount) + ". Finished in loop: " + str(d) + ". time taken: " + str(time.time() - startTime) + "\n")
             message = "System OK." + " key word = " + s + ", number of result = " + str(
                 qcount) + ". Finished in loop: " + str(d) + ". time taken: " + str(time.time() - startTime) + "\n"
             status = "Success"
-            req1 = requests.post('http://100.24.238.133:8081/api/log/add_log', json=({"User": "System","Status": status,"Message": message,"Duration": (str(time.time() - startTime)),"Component" : "Web Scraper","Additional_Info":" "}))
+            req2 = requests.post('http://100.24.238.133:8081/api/log/add_log', json=({"User": "System","Status": status,"Message": message,"Duration": (str(time.time() - startTime)),"Component" : "Web Scraper","Additional_Info":" "}))
             with open('backupLog.csv', 'a', newline='') as csvfile:
                 fieldnames = ['User', 'Status','Message','Duration','Component','Additional_Info']
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -190,11 +196,11 @@ if __name__ == "__main__":
                 log.write(message)
 
                 status = "Fail"
-                req1 = requests.post('http://100.24.238.133:8081/api/log/add_log', json=({"User": "System", "Status": status, "Message": message, "Duration": (str(time.time() - startTime)),"Component" : "Web Scraper","Additional_Info": "WEB_SCAPE_FAIL"}))
+                req1 = requests.post('http://100.24.238.133:8081/api/log/add_log', json=({"User": "System", "Status": status, "Message": message, "Duration": (str(time.time() - startTime)),"Component" : "Web Scraper","Additional_Info": "WEB_SCRAPE_FAIL"}))
                 with open('backupLog.csv', 'a', newline='') as csvfile:
                     fieldnames = ['User', 'Status','Message','Duration','Component','Additional_Info']
                     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-                    writer.writerow({"User": "System","Status": status,"Message": message,"Duration": (str(time.time() - startTime)),"Component" : "Web Scraper","Additional_Info":"WEB_SCAPE_FAIL"})
+                    writer.writerow({"User": "System","Status": status,"Message": message,"Duration": (str(time.time() - startTime)),"Component" : "Web Scraper","Additional_Info":"WEB_SCRAPE_FAIL"})
             elif len(df) > 0:
                 for i in range(df.size):
                     out_dict = {
